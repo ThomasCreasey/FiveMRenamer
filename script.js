@@ -12,9 +12,7 @@ rl.question("What is the current spawncode ? ", function(current) {
         }
         console.log(`${current} -> ${choice}`);
 
-        const allfiles = fs.readdirSync('./car', (err) => {
-            if(err) console.log(err);
-        });
+        const allfiles = fs.readdirSync('./car')
         var i;
         for (i = 0; i < allfiles.length; i++) {
             const thisfile = allfiles[i];
@@ -22,16 +20,12 @@ rl.question("What is the current spawncode ? ", function(current) {
                 let contents = fs.readFileSync(`./car/${thisfile}`).toString();
                 const re = new RegExp(current, 'g');
                 contents = contents.replace(re,choice);
-                fs.writeFileSync(`./car/${thisfile}`, contents, (err) => {
-                    if(err) console.log(err)
-                })
+                fs.writeFileSync(`./car/${thisfile}`, contents)
 
             }
         }
 
-        const streamfiles = fs.readdirSync('./car/stream', (err) => {
-            if(err) console.log(err);
-        });
+        const streamfiles = fs.readdirSync('./car/stream')
 
 
         var e;
@@ -40,12 +34,12 @@ rl.question("What is the current spawncode ? ", function(current) {
             if(thisfile.indexOf('.yft')>=0) {
                 if(thisfile.split('_')[1] === 'hi.yft') {
                     fs.rename(`./car/stream/${thisfile}`, `./car/stream/${choice}_hi.yft`, (err) => {
-                        if(err) console.log(err)
+                        if(err) throw err;
                     })
                 }
                 else {
                     fs.rename(`./car/stream/${thisfile}`, `./car/stream/${choice}.yft`, (err) => {
-                        if(err) console.log(err)
+                        if(err) throw err;
                     })
                 }
            }
@@ -57,12 +51,12 @@ rl.question("What is the current spawncode ? ", function(current) {
            if(thisfile.indexOf('.ytd')>=0) {
             if(thisfile.split('_')[1] === 'hi.yft') {
                 fs.rename(`./car/stream/${thisfile}`, `./car/stream/${choice}_hi.ytd`, (err) => {
-                    if(err) console.log(err)
+                    if(err) throw err;
                 })
             }
             else {
                 fs.rename(`./car/stream/${thisfile}`, `./car/stream/${choice}.ytd`, (err) => {
-                    if(err) console.log(err)
+                    if(err) throw err;
                 })
             }
             }
